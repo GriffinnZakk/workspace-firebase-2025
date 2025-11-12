@@ -1,104 +1,101 @@
 <html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="css/styles.css" />
-    <title>Make a reservation</title>
-    <!-- Jquery library   ---->
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.js"
-      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-      crossorigin="anonymous"
-    ></script>
-  </head>
 
-  <body>
-    <div class="message">
-      <h1>Make a reservation</h1>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <title>Make a reservation</title>
+  <!-- Jquery library   ---->
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+</head>
 
-      <form id="hotelbook">
-        <p>Name: <input type="text" name="name" /></p>
-        <p>
-          Check in: <input type="date" name="checkin" /> Check out:
-          <input type="date" name="checkout" />
-        </p>
-        <p>
-          Number of guest: <input type="number" name="num" min="0" max="5" />
-        </p>
-        <p>
-          Room Type:
-          <select name="room">
-            <option>1 Bedroom Smaller Suite $139</option>
+<body>
+  <div class="message">
+    <h1>Make a reservation</h1>
 
-            <option>1 Bedroom Larger Suite $169</option>
-            <option>1 Bedroom Junior Suite $289</option>
-            <option>Grand Suite $289</option>
-          </select>
-        </p>
+    <form id="hotelbook">
+      <p>Name: <input type="text" name="name" /></p>
+      <p>
+        Check in: <input type="date" name="checkin" /> Check out:
+        <input type="date" name="checkout" />
+      </p>
+      <p>
+        Number of guest: <input type="number" name="num" min="0" max="5" />
+      </p>
+      <p>
+        Room Type:
+        <select name="room">
+          <option>1 Bedroom Smaller Suite $139</option>
 
-        <p>
-          <input type="button" value="submit" id="submit" />
-        </p>
-        <p><input type="button" value="Sign out" id="signout" /></p>
-      </form>
-    </div>
+          <option>1 Bedroom Larger Suite $169</option>
+          <option>1 Bedroom Junior Suite $289</option>
+          <option>Grand Suite $289</option>
+        </select>
+      </p>
 
-    <!-- Insert this script at the bottom of the HTML, but before you use any Firebase services -->
-    <script type="module">
-        ​
-      import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js';
-        //Add Firebase products that you want to use
-      import { getAuth } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js';
-       import { getFirestore } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js';
+      <p>
+        <input type="button" value="submit" id="submit" />
+      </p>
+      <p><input type="button" value="Sign out" id="signout" /></p>
+    </form>
+  </div>
 
-        /* Change the configuration */
-        const firebaseConfig = {
-                apiKey: "AIzaSyDob-9txBBuYpCCsYbDdab7OiJHrb3L5d0",
-                authDomain: "database2025-1a422.firebaseapp.com",
-                projectId: "database2025-1a422",
-                storageBucket: "database2025-1a422.firebasestorage.app",
-                messagingSenderId: "162500439428",
-                appId: "1:162500439428:web:a87724d9a8842f249a81d1"
-        };
+  <!-- Insert this script at the bottom of the HTML, but before you use any Firebase services -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js';
+    //Add Firebase products that you want to use
+    import { getAuth } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js';
+    import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js';
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);​
-        const hotelbooking = collection(db, 'hotelbooking');
+    /* Change the configuration */
+    const firebaseConfig = {
+      apiKey: "AIzaSyDob-9txBBuYpCCsYbDdab7OiJHrb3L5d0",
+      authDomain: "database2025-1a422.firebaseapp.com",
+      projectId: "database2025-1a422",
+      storageBucket: "database2025-1a422.firebasestorage.app",
+      messagingSenderId: "162500439428",
+      appId: "1:162500439428:web:a87724d9a8842f249a81d1"
+    };
 
-              // Get a reference to the form element
-            //  const form = document.getElementById('hotelbook');
-              // Get a reference to the submit button (assuming you want to trigger the action on submit)
-              // We'll use the 'submit' button input for the event listener.
-              const submitButton = document.getElementById('submit');
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const hotelbooking = collection(db, 'hotelbooking');
 
-              /**
-               * Function to read form data and save to database
-               */
-              function getFormDataSubmit(event) {
-                // Prevent the default button action (though not strictly necessary for an input type="button")
-                // If it were a submit button, we'd use event.preventDefault();
-                alert('ddd');
-                // 1. Create a FormData object from the form element
-                const formData = new FormData(form);
+    // Get a reference to the form element
+      const form = document.getElementById('hotelbook');
+    // Get a reference to the submit button 
+      const submitButton = document.getElementById('submit');
 
-                // 2. Convert the FormData entries into a plain JavaScript object
-                const dataObject = {};
+    /**
+     * Function to read form data and save to database
+     */
+    async  function getFormDataSubmit(event) {
+      // Prevent the default button action (though not strictly necessary for an input type="button")
+      event.preventDefault();
+ 
+      // 1. Create a FormData object from the form element
+      const formData = new FormData(form);
 
-                // The entries() method of FormData returns an iterator of key/value pairs
-                for (const [key, value] of formData.entries()) {
-                  dataObject[key] = value;
-                }
+      // 2. Convert the FormData entries into a plain JavaScript object
+      const dataObject = {};
 
-                // 3. Save the booking to database
-                // const docRef = await addDoc(hotelbooking, dataObject);
-                //console.log("✅ Booking saved successfully! Document ID:", docRef.id);
+      // The entries() method of FormData returns an iterator of key/value pairs
+      for (const [key, value] of formData.entries()) {
+        dataObject[key] = value;
+      }
 
-                // 4. Output the result (e.g., to the console)
-                console.log('--- Form Data Object ---');
-                console.log(dataObject);
-              }
+      // 3. Save the booking to database
+      const docRef = await addDoc(hotelbooking, dataObject);
+      console.log("✅ Booking saved successfully! Document ID:", docRef.id);
 
-              // Add an event listener to the submit button
-              submitButton.addEventListener('click', getFormDataSubmit);
-    </script>
-  </body>
+      // 4. Output the result (e.g., to the console)
+      console.log('--- Form Data Object ---');
+      console.log(dataObject);
+    }
+
+    // Add an event listener to the submit button
+    submitButton.addEventListener('click', getFormDataSubmit);
+  </script>
+</body>
+
 </html>

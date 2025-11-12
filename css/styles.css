@@ -154,3 +154,77 @@ input:focus {
   background-color: #dfdfe6;
   outline-width: 0px;
 }
+
+/* ---------- Menu Categories ---------- */
+.menu-category {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.menu-item {
+    width: 250px;
+    text-align: center;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item:hover {
+    transform: scale(1.05);
+}
+
+.menu-image {
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.menu-item button {
+    bottom: 5px; /* 5px above the bottom of the container */
+}
+/* ---------- Carousel Styles ---------- */
+.carousel-container {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+     background-color: #472e23;
+}
+.carousel {
+    display: flex;
+    overflow-x: scroll; /* Allows horizontal scrolling */
+    scroll-behavior: smooth; /* Enables smooth scrolling */
+    gap: 20px;
+    padding: 10px;
+
+    /* Hide the scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.carousel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Edge */
+}
+
+/* ---------- Carousel Buttons ---------- */
+.carousel-button {
+    background: none; /* Removes the background */
+    border: none; /* Removes the border */
+    color: var(--darkbrown); /* Matches the color scheme */
+    font-size: 2rem; /* Ensures arrows are visible */
+    cursor: pointer; /* Indicates interactivity */
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.carousel-button:hover {
+    color: var(--darkbrown); /* Slightly darker on hover for visibility */
+    transform: scale(1.1); /* Adds a slight zoom effect */
+}
+
+.carousel-button:focus {
+    outline: none; /* Removes focus outline for cleaner design */
+}
