@@ -24,9 +24,57 @@
         <p class="center">
           <input type="submit" value="Submit" />
           <input type="reset" value="Reset" />
+          <input type="button" id="google" value="Sign in with Google">
         </p>
       </form>
     </div>
+    
+        <!-- Insert this script at the bottom of the HTML, but before you use any Firebase services -->
+    <script type="module">
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js';
+      // Add Firebase products that you want to use
+      import { getAuth, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js';
+      import { getFirestore, collection, onSnapshot } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js';
+
+      /* Change the configuration */
+
+      const firebaseConfig = {
+        apiKey: 'AIzaSyDob-9txBBuYpCCsYbDdab7OiJHrb3L5d0',
+        authDomain: 'database2025-1a422.firebaseapp.com',
+        projectId: 'database2025-1a422',
+        storageBucket: 'database2025-1a422.firebasestorage.app',
+        messagingSenderId: '162500439428',
+        appId: '1:162500439428:web:a87724d9a8842f249a81d1',
+      };
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
+
+      const signInWithGoogle = () => {
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;              // The signed-in user info.
+            const user = result.user;
+            // IdP data available using getAdditionalUserInfo(result)
+            // ...
+          }).catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;              // The email of the user's account used.
+            const email = error.customData.email;
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            // ...
+            console.log(email + " " + errorMessage);
+          });
+      };
+
+      document.getElementById("google").addEventListener('click', signInWithGoogle);
+
+      </script>
 
     <script type="module"></script>
 
